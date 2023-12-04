@@ -16,7 +16,7 @@ export default function Logo() {
             src={brain}
             className="pt3"
             alt="brain"
-            style={{ height: "85px", width: "85px"}}
+            style={{ height: "85px", width: "85px" }}
           />
         </div>
       </Tilt>
