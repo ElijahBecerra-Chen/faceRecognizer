@@ -45,10 +45,31 @@ const returnClarifaiRequest = (imageUrl) => {
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [box , setBox] = useState({});
 
   const onInputChange = (e) => {
     setInput(e.target.value);
   };
+
+  const calculateFaceLocation = (data) => {
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
+    const width = image.width;
+    const height = image.height;
+
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - clarifaiFace.right_col * width,
+      bottomRow: height - clarifaiFace.bottom_row * height,
+    };
+  };
+
+  const displayFaceBox = (box) => {
+    setBox(box);
+  };
+
   const onButtonSubmit = () => {
     setImageUrl(input);
     fetch(
@@ -56,9 +77,7 @@ function App() {
       returnClarifaiRequest(input)
     )
       .then((response) => response.json())
-      .then((data) =>
-        console.log(data.outputs[0].data.regions[0].region_info.bounding_box)
-      )
+      .then((data) => displayFaceBox(calculateFaceLocation(data)))
       .catch((error) => console.log("error", error));
   };
 
@@ -72,7 +91,7 @@ function App() {
           onInputChange={onInputChange}
           onButtonSubmit={onButtonSubmit}
         />
-        <FaceRecognition imageUrl={imageUrl} />
+        <FaceRecognition imageUrl={imageUrl} box={box} />
       </div>
       <ParticlesBg type="cobweb" bg={true} />
     </>
