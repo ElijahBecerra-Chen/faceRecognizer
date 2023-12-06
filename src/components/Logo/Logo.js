@@ -8,7 +8,6 @@ export default function Logo() {
     <div className="ma4 mt0">
       <Tilt
         className="tilt br3 shadow-3"
-        options={{ max: 50 }}
         style={{ height: "120px", width: "120px" }}
       >
         <div className="tilt-inner">
