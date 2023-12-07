@@ -3,7 +3,7 @@ import ParticlesBg from "particles-bg";
 import Logo from "../components/Logo/Logo";
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
 import Navigation from "../components/Navigation/Navigation";
-import ImageLinkForm from "../components/ImageLinkForm/ImageLinkForm";
+import ImageLinkForm from ".∂∂./components/ImageLinkForm/ImageLinkForm";
 import Rank from "../components/Rank/Rank";
 import { useState } from "react";
 
@@ -45,7 +45,7 @@ const returnClarifaiRequest = (imageUrl) => {
 function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [box , setBox] = useState({});
+  const [box, setBox] = useState({});
 
   const onInputChange = (e) => {
     setInput(e.target.value);

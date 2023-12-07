@@ -4,7 +4,7 @@ import "./ImageLinkForm.css";
 export default function ImageLinkForm({ onInputChange, onButtonSubmit }) {
   return (
     <div>
-      <p className="f3 fw5">
+      <p className="f3 fw6">
         {"This magic brain will detect faces in your pictures. Give it a try"}
       </p>
       <div className="center">
