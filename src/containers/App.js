@@ -4,6 +4,8 @@ import Logo from "../components/Logo/Logo";
 import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
 import Navigation from "../components/Navigation/Navigation";
 import ImageLinkForm from "../components/ImageLinkForm/ImageLinkForm";
+import SignIn from "../components/SignIn/SignIn";
+import Register from "../components/Register/Register";
 import Rank from "../components/Rank/Rank";
 import { useState } from "react";
 
@@ -46,6 +48,8 @@ function App() {
   const [input, setInput] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [box, setBox] = useState({});
+  const [route, setRoute] = useState("signIn");
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const onInputChange = (e) => {
     setInput(e.target.value);
@@ -81,17 +85,34 @@ function App() {
       .catch((error) => console.log("error", error));
   };
 
+  const onRouteChange = (route) => {
+    if (route === "signOut") {
+      setIsSignedIn(false);
+    } else if (route === "home") {
+      setIsSignedIn(true);
+    }
+    setRoute(route);
+  };
+
   return (
     <>
       <div className="App">
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm
-          onInputChange={onInputChange}
-          onButtonSubmit={onButtonSubmit}
-        />
-        <FaceRecognition imageUrl={imageUrl} box={box} />
+        <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn} />
+        {route === "home" ? (
+          <div>
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={onInputChange}
+              onButtonSubmit={onButtonSubmit}
+            />
+            <FaceRecognition imageUrl={imageUrl} box={box} />
+          </div>
+        ) : route === "signIn" ? (
+          <SignIn onRouteChange={onRouteChange} />
+        ) : (
+          <Register onRouteChange={onRouteChange} />
+        )}
       </div>
       <ParticlesBg type="cobweb" bg={true} />
     </>
